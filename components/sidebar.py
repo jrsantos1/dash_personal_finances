@@ -39,13 +39,67 @@ layout = dbc.Col([
     dbc.Modal([
         dbc.ModalHeader(dbc.ModalTitle('Adicionar Receita')),
         dbc.ModalBody([
+            # --------- Formulário
             dbc.Row([
                 dbc.Col([
                     dbc.Label('Descrição: '),
                     dbc.Input(placeholder="Ex.: dividendos da bolsa, henraça... ", id = 'txt-receita'),
                     
+                ], width=6),
+                
+                dbc.Col([
+                    dbc.Label('Valor: '),
+                    dbc.Input(placeholder="Ex.: $100.00 ", id = 'valor-receita'),
+                    
                 ], width=6)
-            ])
+            ]),
+            
+            # ---------- Calendário
+            
+            dbc.Row([
+                dbc.Col([
+                    dbc.Label('Data: '),
+                    dcc.DatePickerSingle(id = 'data-receitas',
+                                         min_date_allowed=date(2020,1,1,),
+                                         max_date_allowed=date(2030,12,31),
+                                         date=datetime.today(),
+                                         style={'width' : '100%'})
+                ], width=4),
+                
+                dbc.Col([
+                    dbc.Label("Extras:"),
+                    dbc.Checklist(
+                        options=[],
+                        value=[],
+                        id='switches-input-receita',
+                        switch=True
+                    )
+                ]),
+                
+                dbc.Col([
+                    html.Label('Categoria receita'),
+                    dbc.Select(id='select_receita', options=[], value=[])
+                ], width=4)                
+            ],  style={'margin-top': '25px'}),
+            
+            dbc.Row(
+                dbc.Accordion([
+                    dbc.AccordionItem(children=[
+                        dbc.Row([
+                            dbc.Col([
+                                html.Legend('Adicionar Categoria', style={'color': 'green'}),
+                                dbc.Input(type='text', placeholder='Nova categoria... ', id='input-add-receita', value=''),
+                                html.Br(),
+                                dbc.Button('Adicionar', className='btn btn-sucess', id='add-category-receita', style={'margin-top': '20px'}),
+                                html.Br(),
+                                html.Div(id='category-div-add-receita', style={})
+                            ])
+                        ])
+                    ])
+                ]), style={'margin-top': '20px'}
+            )
+            
+            
         ])
     ], id = 'modal_novo_receita'),
 
