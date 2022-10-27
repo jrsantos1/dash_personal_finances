@@ -13,7 +13,7 @@ content = html.Div(id="page-content")
 
 # Layout principal do aplicativo ---- dbc container utilizado para dividir o layout em colunas em linhas
 
-app.layout = dbc.Container(children=[
+app.layout = dbc.Col(children=[
     dbc.Row([
         dbc.Col([
             dcc.Location(id='url'),
@@ -25,8 +25,7 @@ app.layout = dbc.Container(children=[
         ], md = 10),
     ])
 
-], fluid=True,)
-
+])
 
 @app.callback(Output('page-content', 'children'), [Input('url', 'pathname')])
 def render_page(pathname):
